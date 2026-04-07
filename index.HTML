@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HDX.STUDIO | INDUSTRIAL PRECISION WEB DESIGN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-error": "#690005",
+        "error-container": "#93000a",
+        "on-primary-fixed-variant": "#584400",
+        "tertiary-container": "#cdcac4",
+        "surface-container": "#201f1f",
+        "surface-container-highest": "#353534",
+        "surface-bright": "#3a3939",
+        "on-tertiary-container": "#565550",
+        "primary-fixed": "#ffe08b",
+        "surface-container-high": "#2a2a2a",
+        "outline": "#9a9078",
+        "on-surface": "#e5e2e1",
+        "on-error-container": "#ffdad6",
+        "surface": "#131313",
+        "on-tertiary-fixed": "#1c1c18",
+        "on-primary-container": "#695200",
+        "inverse-primary": "#745b00",
+        "secondary-fixed-dim": "#c8c6c6",
+        "primary": "#ffe5a0",
+        "secondary-container": "#464747",
+        "on-secondary-fixed": "#1b1c1c",
+        "on-primary": "#3d2f00",
+        "background": "#131313",
+        "on-tertiary": "#31312c",
+        "on-secondary": "#303030",
+        "on-surface-variant": "#d1c5ac",
+        "on-secondary-fixed-variant": "#464747",
+        "on-tertiary-fixed-variant": "#474742",
+        "primary-container": "#f5c518",
+        "tertiary": "#e9e6df",
+        "outline-variant": "#4e4633",
+        "surface-dim": "#131313",
+        "inverse-on-surface": "#313030",
+        "secondary-fixed": "#e4e2e2",
+        "surface-container-lowest": "#0e0e0e",
+        "secondary": "#c8c6c6",
+        "tertiary-fixed": "#e5e2db",
+        "on-secondary-container": "#b6b5b4",
+        "surface-container-low": "#1c1b1b",
+        "surface-variant": "#353534",
+        "inverse-surface": "#e5e2e1",
+        "error": "#ffb4ab",
+        "primary-fixed-dim": "#f0c110",
+        "surface-tint": "#f0c110",
+        "tertiary-fixed-dim": "#c9c6c0",
+        "on-primary-fixed": "#241a00",
+        "on-background": "#e5e2e1"
+      },
+      fontFamily: {
+        headline: ["Space Grotesk", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+        label: ["Space Grotesk", "sans-serif"]
+      }
+    }
+  }
+}
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  /* ===== GLOBAL ===== */
+  * { border-radius: 0 !important; }
+  body { min-height: max(884px, 100dvh); }
+
+  /* ===== NOISE OVERLAY ===== */
+  .noise-overlay::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee-container { overflow: hidden; white-space: nowrap; }
+  .marquee-content { display: inline-block; animation: marquee-scroll 30s linear infinite; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ===== HERO STAGGER ===== */
+  .hero-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(44px);
+    transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hero-animate .hero-line           { opacity: 1; transform: translateY(0); }
+  .hero-animate .hero-line:nth-child(1) { transition-delay: 0.05s; }
+  .hero-animate .hero-line:nth-child(2) { transition-delay: 0.22s; }
+
+  .hero-sub {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s ease 0.45s, transform 0.65s ease 0.45s;
+  }
+  .hero-cta-group {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s ease 0.62s, transform 0.65s ease 0.62s;
+  }
+  .hero-animate .hero-sub,
+  .hero-animate .hero-cta-group { opacity: 1; transform: translateY(0); }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 0.10s; }
+  .delay-2 { transition-delay: 0.20s; }
+  .delay-3 { transition-delay: 0.30s; }
+  .delay-4 { transition-delay: 0.40s; }
+  .delay-5 { transition-delay: 0.50s; }
+
+  /* ===== BUTTON HOVER FILL (bottom to top) ===== */
+  .btn-fill {
+    position: relative;
+    overflow: hidden;
+    transition: color 0.35s ease;
+  }
+  .btn-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+  .btn-fill:hover::after { transform: scaleY(1); }
+  .btn-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Yellow bg → dark fill on hover */
+  .btn-yellow::after { background: #241a00; }
+  .btn-yellow:hover  { color: #ffe5a0; }
+
+  /* Dark bg → yellow fill on hover */
+  .btn-dark::after { background: #f5c518; }
+  .btn-dark:hover  { color: #131313; }
+
+  /* Nav COTIZAR (yellow bg) → dark brown fill */
+  .btn-nav-cta::after { background: #241a00; }
+  .btn-nav-cta:hover  { color: #ffe5a0; }
+
+  /* Service card hover accent border */
+  .service-card {
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .service-card:hover { border-color: #f5c518 !important; }
+
+  /* ===== IFRAME PREVIEW ===== */
+  .preview-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #181818;
+  }
+  .preview-frame {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1280px;
+    height: 960px;
+    border: none;
+    pointer-events: none;
+    transform-origin: top left;
+  }
+  .preview-lg .preview-frame { transform: scale(0.46); }
+  .preview-sm .preview-frame { transform: scale(0.30); }
+  .preview-fw .preview-frame { transform: scale(0.46); }
+  @media (max-width: 767px) {
+    .preview-lg .preview-frame,
+    .preview-sm .preview-frame,
+    .preview-fw .preview-frame { transform: scale(0.30); }
+  }
+
+  /* ===== PROCESS LINE ===== */
+  .process-line-bar {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0;
+    background: #f5c518;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .process-line-bar.visible { width: 100%; }
+
+  /* ===== STEP DIAMONDS ===== */
+  .step-diamond {
+    transition: transform 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+  }
+  .step-diamond:hover {
+    transform: rotate(0deg) !important;
+    background-color: #f5c518 !important;
+    color: #131313 !important;
+  }
+
+  /* ===== HEADER SCROLLED ===== */
+  #siteHeader { transition: background-color 0.3s ease, backdrop-filter 0.3s ease; }
+  #siteHeader.scrolled {
+    background-color: rgba(19, 19, 19, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+  }
+
+  /* ===== MOBILE MENU ===== */
+  #mobileMenu {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(13, 13, 13, 0.98);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #mobileMenu.open { opacity: 1; pointer-events: all; }
+
+  /* ===== FAB PULSE ===== */
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0   rgba(245, 197, 24, 0.5); }
+    70%  { box-shadow: 0 0 0 12px rgba(245, 197, 24, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(245, 197, 24, 0); }
+  }
+  .fab-pulse { animation: pulse-ring 2.2s infinite; }
+
+  /* ===== PROJECT CARD ===== */
+  .project-card {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body noise-overlay selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ===== MOBILE MENU OVERLAY ===== -->
+<div id="mobileMenu">
+  <button id="closeMenu" class="absolute top-6 right-6 text-on-surface-variant hover:text-primary-container transition-colors material-symbols-outlined text-4xl">close</button>
+  <div class="flex flex-col items-center gap-8 w-full px-8">
+    <a href="#work"
+       class="font-headline font-black text-4xl uppercase tracking-tighter text-on-surface hover:text-primary-container transition-colors w-full text-center border-b border-outline-variant pb-8">
+      PROYECTOS
+    </a>
+    <a href="#services"
+       class="font-headline font-black text-4xl uppercase tracking-tighter text-on-surface hover:text-primary-container transition-colors w-full text-center border-b border-outline-variant pb-8">
+      SERVICIOS
+    </a>
+    <a href="#contact"
+       class="btn-fill btn-yellow mt-4 px-12 py-5 bg-primary-container text-on-primary font-headline font-black text-2xl uppercase">
+      <span class="btn-content">COTIZAR</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader" class="fixed top-0 w-full z-50 bg-[#131313]/60 backdrop-blur-xl border-b-2 border-[#353534]">
+  <nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <div class="flex items-center gap-3">
+      <img alt="HDX Lizard Logo" class="w-8 h-8 object-contain"
+           src="./logo.png"/>
+      <span class="text-xl font-black tracking-tighter text-[#F5C518] uppercase font-headline">HDX.STUDIO</span>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a href="#work"
+         class="font-headline font-extrabold tracking-tighter text-[#E5E2E1] hover:text-[#F5C518] transition-colors duration-200 text-sm uppercase">
+        PROYECTOS
+      </a>
+      <a href="#services"
+         class="font-headline font-extrabold tracking-tighter text-[#E5E2E1] hover:text-[#F5C518] transition-colors duration-200 text-sm uppercase">
+        SERVICIOS
+      </a>
+      <a href="#contact"
+         class="btn-fill btn-nav-cta bg-[#F5C518] text-[#131313] px-5 py-2.5 text-sm font-black uppercase font-headline">
+        <span class="btn-content">COTIZAR</span>
+      </a>
+    </div>
+    <button id="openMenu" class="md:hidden text-[#F5C518] material-symbols-outlined text-3xl">menu</button>
+  </nav>
+</header>
+
+<main class="pt-16">
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-[795px] flex flex-col justify-center px-6 md:px-24 py-20 overflow-hidden bg-surface">
+    <!-- Watermark -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+      <img alt="" class="h-4/5 object-contain grayscale"
+           src="./logo.png"/>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center" id="heroContent">
+      <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.92] uppercase mb-8">
+        <span class="hero-line">PRESENCIA DIGITAL DE</span>
+        <span class="hero-line text-primary-container">PRECISIÓN</span>
+      </h1>
+      <p class="hero-sub text-lg md:text-xl text-on-surface-variant max-w-2xl mb-12 border-l-4 border-primary-container pl-6 border-y-2 border-outline-variant py-4">
+        Ingeniería web para el sector industrial y construcción.
+      </p>
+      <div class="hero-cta-group flex flex-col md:flex-row gap-4">
+        <a href="https://wa.me/584244770404?text=Hola,%20quiero%20hablar%20sobre%20el%20sitio%20web%20de%20mi%20empresa"
+           class="btn-fill btn-yellow px-10 py-5 bg-primary-container text-on-primary font-headline font-black text-xl active:scale-95 transition-transform"
+           target="_blank" rel="noopener noreferrer">
+          <span class="btn-content">
+            <span class="material-symbols-outlined">chat</span>
+            WHATSAPP
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <section class="bg-primary-container py-4 border-y-2 border-surface-container-highest marquee-container" aria-hidden="true">
+    <div class="marquee-content flex gap-12 items-center">
+      <div class="flex gap-12 items-center">
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">DISEÑO WEB ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">PRESENCIA DIGITAL ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">CONSTRUCCIÓN ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">INDUSTRIAL PRECISION ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">ESTRATEGIA SEO ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">HOME SERVICES ✦</span>
+      </div>
+      <div class="flex gap-12 items-center">
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">DISEÑO WEB ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">PRESENCIA DIGITAL ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">CONSTRUCCIÓN ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">INDUSTRIAL PRECISION ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">ESTRATEGIA SEO ✦</span>
+        <span class="text-surface font-headline font-black text-2xl uppercase italic">HOME SERVICES ✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="py-24 px-6 md:px-24 bg-surface-container-lowest" id="services">
+    <div class="mb-16 fade-up">
+      <span class="font-label text-primary-container font-bold tracking-widest text-sm uppercase">ESTRUCTURAS DIGITALES</span>
+      <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter uppercase mt-4">NUESTROS SERVICIOS</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-2 border-outline-variant">
+      <div class="service-card p-10 bg-surface border-b-2 md:border-b-0 md:border-r-2 border-outline-variant fade-up delay-1">
+        <span class="block font-headline text-6xl font-black text-primary-container mb-8">01</span>
+        <h3 class="font-headline text-2xl font-bold uppercase mb-4">Diseño Web</h3>
+        <p class="text-on-surface-variant font-body">Interfaces de alto impacto visual diseñadas bajo principios de arquitectura técnica y usabilidad industrial.</p>
+      </div>
+      <div class="service-card p-10 bg-surface border-b-2 md:border-b-0 md:border-r-2 border-outline-variant fade-up delay-2">
+        <span class="block font-headline text-6xl font-black text-primary-container mb-8">02</span>
+        <h3 class="font-headline text-2xl font-bold uppercase mb-4">Presencia Profesional</h3>
+        <p class="text-on-surface-variant font-body">Posicionamos su marca como líder del sector con una identidad digital robusta y profesional.</p>
+      </div>
+      <div class="service-card p-10 bg-surface fade-up delay-3">
+        <span class="block font-headline text-6xl font-black text-primary-container mb-8">03</span>
+        <h3 class="font-headline text-2xl font-bold uppercase mb-4">Optimización</h3>
+        <p class="text-on-surface-variant font-body">Velocidad de carga superior y SEO técnico para garantizar que su empresa sea encontrada por los clientes correctos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section class="py-24 px-6 md:px-24 bg-surface" id="work">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 fade-up">
+      <div>
+        <span class="font-label text-primary-container font-bold tracking-widest text-sm uppercase">PORTFOLIO</span>
+        <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter uppercase mt-4">PROYECTOS RECIENTES</h2>
+      </div>
+      <div class="w-full md:w-auto">
+        <div class="h-[2px] w-32 bg-outline-variant mb-4 hidden md:block"></div>
+        <p class="text-sm font-label text-outline uppercase tracking-widest">Ejecución de precisión</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+      <!-- A&L PLASTERING — Large (8 cols) -->
+      <a href="https://plaster-perfection-pros.lovable.app/"
+         target="_blank" rel="noopener noreferrer"
+         class="project-card md:col-span-8 group relative overflow-hidden h-[400px] md:h-[600px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-1">
+        <div class="preview-wrapper preview-lg">
+          <iframe src="https://plaster-perfection-pros.lovable.app/"
+                  class="preview-frame"
+                  title="A&L Plastering Preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms">
+          </iframe>
+        </div>
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/50 to-transparent"></div>
+        <!-- Hover overlay -->
+        <div class="absolute inset-0 bg-primary-container/0 group-hover:bg-primary-container/8 transition-colors duration-400 flex items-end justify-end p-6">
+          <span class="font-headline text-on-surface font-black text-xs uppercase tracking-widest bg-surface/90 px-4 py-2 border border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 transform">
+            ABRIR PROYECTO →
+          </span>
+        </div>
+        <!-- Info -->
+        <div class="absolute bottom-0 left-0 p-8 w-full z-10">
+          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-4 inline-block font-headline">
+            WEB DESIGN / DEV
+          </span>
+          <h3 class="font-headline text-3xl font-black uppercase text-on-surface">A&L Plastering</h3>
+          <p class="text-on-surface-variant mt-2 text-sm max-w-md">Sitio corporativo para empresa líder en acabados y plastering profesional.</p>
+        </div>
+      </a>
+
+      <!-- PREMIER REMODEL — Small (4 cols) -->
+      <a href="https://dream-build-mastery.lovable.app/"
+         target="_blank" rel="noopener noreferrer"
+         class="project-card md:col-span-4 group relative overflow-hidden h-[400px] md:h-[600px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-2">
+        <div class="preview-wrapper preview-sm">
+          <iframe src="https://dream-build-mastery.lovable.app/"
+                  class="preview-frame"
+                  title="Premier Remodel Preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms">
+          </iframe>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-primary-container/0 group-hover:bg-primary-container/8 transition-colors duration-400 flex items-end justify-end p-6">
+          <span class="font-headline text-on-surface font-black text-xs uppercase tracking-widest bg-surface/90 px-4 py-2 border border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 transform">
+            ABRIR PROYECTO →
+          </span>
+        </div>
+        <div class="absolute bottom-0 left-0 p-8 z-10">
+          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-4 inline-block font-headline">
+            WEB DESIGN
+          </span>
+          <h3 class="font-headline text-2xl font-black uppercase text-on-surface">Premier Remodel</h3>
+          <p class="text-on-surface-variant mt-2 text-sm max-w-xs">Plataforma digital para servicios de remodelación residencial de alto nivel.</p>
+        </div>
+      </a>
+
+      <!-- BROCCAS GROUP — Full width (12 cols) -->
+      <a href="https://broccasgroup.com"
+         target="_blank" rel="noopener noreferrer"
+         class="project-card md:col-span-12 group relative overflow-hidden h-[420px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-3">
+        <div class="preview-wrapper preview-fw">
+          <iframe src="https://broccasgroup.com"
+                  class="preview-frame"
+                  title="Broccas Group Preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms">
+          </iframe>
+        </div>
+        <!-- Soft dark overlay that lightens on hover -->
+        <div class="absolute inset-0 bg-[#0e0e0e]/55 group-hover:bg-[#0e0e0e]/30 transition-colors duration-400"></div>
+        <!-- Centered info panel -->
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+          <div class="text-center p-10 bg-surface/90 border-2 border-outline-variant group-hover:border-primary-container transition-colors duration-300">
+            <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-5 inline-block font-headline">
+              E-COMMERCE / BRANDING
+            </span>
+            <h3 class="font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter text-on-surface">Broccas Group</h3>
+            <p class="text-on-surface-variant font-label text-sm mt-3 max-w-sm mx-auto">Catálogo digital e importadora de herrajes para carpintería.</p>
+            <p class="text-primary-container font-label uppercase text-xs mt-5 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              ABRIR PROYECTO ✦
+            </p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== WHY HDX.STUDIO ===== -->
+  <section class="py-24 px-6 md:px-24 bg-surface-container-low border-y-4 border-outline-variant">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter uppercase mb-8 fade-up">
+          POR QUÉ<br/><span class="text-primary-container">HDX.STUDIO</span>
+        </h2>
+        <p class="text-xl text-on-surface-variant mb-10 leading-relaxed fade-up delay-1">
+          En la industria de la construcción, cada milímetro cuenta. En el mundo digital, cada píxel y cada segundo de carga definen el éxito. No creamos sitios web genéricos; construimos infraestructuras digitales de precisión industrial.
+        </p>
+        <div class="space-y-5 fade-up delay-2">
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary-container mt-0.5">check_box</span>
+            <div>
+              <h4 class="font-headline font-bold uppercase">Sin Plantillas</h4>
+              <p class="text-sm text-outline mt-1">Código limpio y personalizado desde cero.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary-container mt-0.5">speed</span>
+            <div>
+              <h4 class="font-headline font-bold uppercase">Rendimiento Extremo</h4>
+              <p class="text-sm text-outline mt-1">Puntuaciones perfectas en Google PageSpeed.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary-container mt-0.5">devices</span>
+            <div>
+              <h4 class="font-headline font-bold uppercase">Mobile-First</h4>
+              <p class="text-sm text-outline mt-1">Experiencia impecable en todos los dispositivos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats — Option B -->
+      <div class="grid grid-cols-1 gap-4">
+        <div class="p-8 bg-surface-container-highest border-l-8 border-primary-container fade-up delay-1">
+          <span class="block font-headline text-5xl font-black text-on-surface">100%</span>
+          <span class="text-primary-container font-label uppercase font-bold tracking-widest text-sm block mt-1">CÓDIGO PROPIO</span>
+          <p class="text-sm text-outline mt-2">Cada proyecto es personalizado desde cero.</p>
+        </div>
+        <div class="p-8 bg-surface-container-highest border-l-8 border-primary-container fade-up delay-2">
+          <span class="block font-headline text-5xl font-black text-on-surface">&lt; 2s</span>
+          <span class="text-primary-container font-label uppercase font-bold tracking-widest text-sm block mt-1">VELOCIDAD DE CARGA</span>
+          <p class="text-sm text-outline mt-2">Rendimiento extremo en cada página que construimos.</p>
+        </div>
+        <div class="p-8 bg-surface-container-highest border-l-8 border-primary-container fade-up delay-3">
+          <span class="block font-headline text-5xl font-black text-on-surface">24/7</span>
+          <span class="text-primary-container font-label uppercase font-bold tracking-widest text-sm block mt-1">SU WEB TRABAJANDO</span>
+          <p class="text-sm text-outline mt-2">Presencia digital que no descansa ni en feriados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="py-24 px-6 md:px-24 bg-surface">
+    <div class="text-center mb-20 fade-up">
+      <span class="font-label text-primary-container font-bold tracking-widest text-sm uppercase">METODOLOGÍA</span>
+      <h2 class="font-headline text-4xl md:text-5xl font-black uppercase tracking-tighter mt-4">EL MÉTODO HDX</h2>
+    </div>
+    <div class="relative max-w-6xl mx-auto">
+      <!-- Animated connecting line (desktop only) -->
+      <div class="hidden md:block absolute top-8 left-[8%] right-[8%] h-[2px] bg-outline-variant overflow-hidden">
+        <div id="processLine" class="process-line-bar"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 relative z-10">
+        <div class="flex flex-col items-center fade-up delay-1">
+          <div class="step-diamond w-16 h-16 bg-surface-container-highest border-2 border-primary-container flex items-center justify-center font-headline text-2xl font-black mb-6 rotate-45">
+            <span class="-rotate-45 block">1</span>
+          </div>
+          <h4 class="font-headline font-bold uppercase mb-2 text-center">Diagnóstico</h4>
+          <p class="text-sm text-center text-on-surface-variant">Análisis de requerimientos técnicos y objetivos de negocio.</p>
+        </div>
+        <div class="flex flex-col items-center fade-up delay-2">
+          <div class="step-diamond w-16 h-16 bg-surface-container-highest border-2 border-primary-container flex items-center justify-center font-headline text-2xl font-black mb-6 rotate-45">
+            <span class="-rotate-45 block">2</span>
+          </div>
+          <h4 class="font-headline font-bold uppercase mb-2 text-center">Diseño</h4>
+          <p class="text-sm text-center text-on-surface-variant">Arquitectura visual y prototipado de alta fidelidad.</p>
+        </div>
+        <div class="flex flex-col items-center fade-up delay-3">
+          <div class="step-diamond w-16 h-16 bg-surface-container-highest border-2 border-primary-container flex items-center justify-center font-headline text-2xl font-black mb-6 rotate-45">
+            <span class="-rotate-45 block">3</span>
+          </div>
+          <h4 class="font-headline font-bold uppercase mb-2 text-center">Desarrollo</h4>
+          <p class="text-sm text-center text-on-surface-variant">Construcción con código limpio y optimización de carga.</p>
+        </div>
+        <div class="flex flex-col items-center fade-up delay-4">
+          <div class="step-diamond w-16 h-16 bg-primary-container border-2 border-primary-container text-on-primary flex items-center justify-center font-headline text-2xl font-black mb-6 rotate-45">
+            <span class="-rotate-45 block">4</span>
+          </div>
+          <h4 class="font-headline font-bold uppercase mb-2 text-center">Entrega</h4>
+          <p class="text-sm text-center text-on-surface-variant">Lanzamiento, capacitación y soporte post-entrega.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA FINAL ===== -->
+  <section class="py-24 px-6 md:px-24 bg-primary-container overflow-hidden relative" id="contact">
+    <div class="relative z-10 text-center max-w-4xl mx-auto fade-up">
+      <h2 class="font-headline text-4xl md:text-7xl font-black text-on-primary uppercase leading-[0.92] mb-8">
+        ¿SU EMPRESA NECESITA UNA WEB QUE TRABAJE POR USTED?
+      </h2>
+      <div class="h-2 w-32 bg-on-primary mx-auto mb-10"></div>
+      <p class="text-on-primary-container text-xl md:text-2xl font-bold uppercase mb-12 italic">
+        No deje su presencia digital al azar. Hablemos hoy.
+      </p>
+      <a href="https://wa.me/584244770404?text=Hola,%20quiero%20hablar%20sobre%20el%20sitio%20web%20de%20mi%20empresa"
+         class="btn-fill btn-dark inline-flex items-center gap-4 bg-on-primary text-primary-container px-10 py-6 font-headline font-black text-2xl active:scale-95 transition-transform"
+         target="_blank" rel="noopener noreferrer">
+        <span class="btn-content">
+          WHATSAPP <span class="material-symbols-outlined">chat</span>
+        </span>
+      </a>
+    </div>
+    <!-- Decorative crosshairs -->
+    <div class="absolute top-10 left-10 text-on-primary-container opacity-20 material-symbols-outlined text-5xl select-none">add</div>
+    <div class="absolute bottom-10 right-10 text-on-primary-container opacity-20 material-symbols-outlined text-5xl select-none">add</div>
+    <div class="absolute top-10 right-10 text-on-primary-container opacity-10 material-symbols-outlined text-3xl select-none">add</div>
+    <div class="absolute bottom-10 left-10 text-on-primary-container opacity-10 material-symbols-outlined text-3xl select-none">add</div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-[#0E0E0E] w-full border-t-2 border-[#353534]">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-12 w-full max-w-7xl mx-auto">
+    <div class="flex flex-col gap-4">
+      <div class="text-lg font-bold text-[#F5C518] font-headline uppercase tracking-tighter">HDX.STUDIO</div>
+      <p class="text-[#9A9078] font-label text-xs uppercase tracking-widest max-w-xs leading-relaxed">
+        AGENCIA DE DISEÑO WEB INDUSTRIAL. ENFOQUE EN CONVERSIÓN Y PRECISIÓN TÉCNICA.
+      </p>
+      <a href="https://wa.me/584244770404?text=Hola,%20quiero%20hablar%20sobre%20el%20sitio%20web%20de%20mi%20empresa"
+         class="inline-flex items-center gap-2 text-[#F5C518] font-label text-xs uppercase tracking-widest hover:text-white transition-all mt-2"
+         target="_blank" rel="noopener noreferrer">
+        <span class="material-symbols-outlined text-base">chat</span>
+        +58 424 477 0404
+      </a>
+      <div class="text-[#9A9078] font-label text-[10px] uppercase tracking-[0.2em] mt-6">
+        © 2026 HDX.STUDIO. INDUSTRIAL PRECISION.
+      </div>
+    </div>
+    <div class="flex flex-col gap-3">
+      <span class="text-primary-container font-black text-xs uppercase tracking-widest mb-2 font-headline">MAPA</span>
+      <a href="#" class="text-[#9A9078] font-label text-xs uppercase tracking-widest hover:text-white transition-all">INICIO</a>
+      <a href="#work" class="text-[#9A9078] font-label text-xs uppercase tracking-widest hover:text-white transition-all">PROYECTOS</a>
+      <a href="#services" class="text-[#9A9078] font-label text-xs uppercase tracking-widest hover:text-white transition-all">SERVICIOS</a>
+      <a href="#contact" class="text-[#9A9078] font-label text-xs uppercase tracking-widest hover:text-white transition-all">CONTACTO</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MOBILE FAB ===== -->
+<div class="fixed bottom-8 right-8 z-50 md:hidden">
+  <a href="https://wa.me/584244770404?text=Hola,%20quiero%20hablar%20sobre%20el%20sitio%20web%20de%20mi%20empresa"
+     class="fab-pulse flex items-center justify-center w-14 h-14 bg-[#F5C518] text-[#131313] shadow-[4px_4px_0px_0px_rgba(14,14,14,1)] active:scale-90 transition-transform"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Contactar por WhatsApp">
+    <span class="material-symbols-outlined text-2xl">chat</span>
+  </a>
+</div>
+
+<script>
+  // ===== 1. HERO ANIMATION =====
+  (function () {
+    const hero = document.getElementById('heroContent');
+    if (!hero) return;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.add('hero-animate');
+      });
+    });
+  })();
+
+  // ===== 2. SCROLL ANIMATIONS (IntersectionObserver) =====
+  var scrollObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        scrollObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(function (el) {
+    scrollObs.observe(el);
+  });
+
+  // ===== 3. PROCESS LINE ANIMATION =====
+  var processLine = document.getElementById('processLine');
+  if (processLine) {
+    var lineObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          processLine.classList.add('visible');
+          lineObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    lineObs.observe(processLine.parentElement);
+  }
+
+  // ===== 4. MOBILE MENU =====
+  var mobileMenu  = document.getElementById('mobileMenu');
+  var openBtn     = document.getElementById('openMenu');
+  var closeBtn    = document.getElementById('closeMenu');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (openBtn)  openBtn.addEventListener('click', openMobileMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  }
+
+  // ===== 5. SMOOTH SCROLL =====
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      if (href === '#') return;
+      var target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ===== 6. HEADER SCROLL EFFECT =====
+  var siteHeader = document.getElementById('siteHeader');
+  if (siteHeader) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 20) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>
