@@ -177,32 +177,6 @@ tailwind.config = {
   }
   .service-card:hover { border-color: #f5c518 !important; }
 
-  /* ===== IFRAME PREVIEW ===== */
-  .preview-wrapper {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background: #181818;
-  }
-  .preview-frame {
-    position: absolute;
-    top: 0; left: 0;
-    width: 1280px;
-    height: 960px;
-    border: none;
-    pointer-events: none;
-    transform-origin: top left;
-  }
-  .preview-lg .preview-frame { transform: scale(0.46); }
-  .preview-sm .preview-frame { transform: scale(0.30); }
-  .preview-fw .preview-frame { transform: scale(0.46); }
-  @media (max-width: 767px) {
-    .preview-lg .preview-frame,
-    .preview-sm .preview-frame,
-    .preview-fw .preview-frame { transform: scale(0.30); }
-  }
-
   /* ===== PROCESS LINE ===== */
   .process-line-bar {
     position: absolute;
@@ -403,93 +377,85 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div class="flex flex-col gap-16 md:gap-24">
 
-      <!-- A&L PLASTERING — Large (8 cols) -->
-      <a href="https://al-plastering.vercel.app/"
-         target="_blank" rel="noopener noreferrer"
-         class="project-card md:col-span-8 group relative overflow-hidden h-[400px] md:h-[600px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-1">
-        <div class="preview-wrapper preview-lg">
-          <iframe src="https://al-plastering.vercel.app/"
-                  class="preview-frame"
-                  title="A&L Plastering Preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin allow-forms">
-          </iframe>
-        </div>
-        <!-- Gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/50 to-transparent"></div>
-        <!-- Hover overlay -->
-        <div class="absolute inset-0 bg-primary-container/0 group-hover:bg-primary-container/8 transition-colors duration-400 flex items-end justify-end p-6">
-          <span class="font-headline text-on-surface font-black text-xs uppercase tracking-widest bg-surface/90 px-4 py-2 border border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 transform">
-            ABRIR PROYECTO →
-          </span>
-        </div>
-        <!-- Info -->
-        <div class="absolute bottom-0 left-0 p-8 w-full z-10">
-          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-4 inline-block font-headline">
+      <!-- A&L PLASTERING — descripción izquierda · página derecha -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center fade-up">
+        <div class="md:col-span-5 order-2 md:order-1">
+          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-5 inline-block font-headline">
             LANDING / CONVERSIÓN
           </span>
-          <h3 class="font-headline text-3xl font-black uppercase text-on-surface">A&L Plastering</h3>
-          <p class="text-on-surface-variant mt-2 text-sm max-w-md">Contratista de yeso y estuco en Nevada. El teléfono nunca sale de pantalla y el presupuesto queda a dos toques desde cualquier punto de la página.</p>
-        </div>
-      </a>
-
-      <!-- LUXSCENTS TIME — Small (4 cols) -->
-      <a href="https://luxscents-time.vercel.app/"
-         target="_blank" rel="noopener noreferrer"
-         class="project-card md:col-span-4 group relative overflow-hidden h-[400px] md:h-[600px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-2">
-        <div class="preview-wrapper preview-sm">
-          <iframe src="https://luxscents-time.vercel.app/"
-                  class="preview-frame"
-                  title="Luxscents Time Preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin allow-forms">
-          </iframe>
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/50 to-transparent"></div>
-        <div class="absolute inset-0 bg-primary-container/0 group-hover:bg-primary-container/8 transition-colors duration-400 flex items-end justify-end p-6">
-          <span class="font-headline text-on-surface font-black text-xs uppercase tracking-widest bg-surface/90 px-4 py-2 border border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 transform">
+          <h3 class="font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter text-on-surface">A&L Plastering</h3>
+          <p class="text-on-surface-variant mt-4 leading-relaxed">
+            Contratista de yeso y estuco en Nevada. Construimos una landing donde el teléfono nunca sale
+            de pantalla y el presupuesto queda a dos toques desde cualquier punto de la página: formulario
+            doble, ocho muestras de acabado dibujadas a código y carga instantánea sin dependencias externas.
+          </p>
+          <a href="https://al-plastering.vercel.app/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 mt-6 font-headline font-black text-xs uppercase tracking-widest text-primary-container border-b-2 border-outline-variant hover:border-primary-container pb-1 transition-colors">
             ABRIR PROYECTO →
-          </span>
+          </a>
         </div>
-        <div class="absolute bottom-0 left-0 p-8 z-10">
-          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-4 inline-block font-headline">
+        <a href="https://al-plastering.vercel.app/" target="_blank" rel="noopener noreferrer"
+           class="project-card md:col-span-7 order-1 md:order-2 group block overflow-hidden border-2 border-outline-variant hover:border-primary-container transition-colors duration-300">
+          <img src="./proyecto-al-plastering.webp"
+               alt="Portada del sitio de A&L Plastering: hero oscuro con formulario de presupuesto"
+               width="1280" height="800" loading="lazy" decoding="async"
+               class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"/>
+        </a>
+      </div>
+
+      <!-- LUXSCENTS TIME — página izquierda · descripción derecha -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center fade-up">
+        <a href="https://luxscents-time.vercel.app/" target="_blank" rel="noopener noreferrer"
+           class="project-card md:col-span-7 group block overflow-hidden border-2 border-outline-variant hover:border-primary-container transition-colors duration-300">
+          <img src="./proyecto-luxscents.webp"
+               alt="Portada de Luxscents Time: vitrina de relojes sobre fondo negro con titular dorado"
+               width="1280" height="800" loading="lazy" decoding="async"
+               class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"/>
+        </a>
+        <div class="md:col-span-5">
+          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-5 inline-block font-headline">
             E-COMMERCE
           </span>
-          <h3 class="font-headline text-2xl font-black uppercase text-on-surface">Luxscents Time</h3>
-          <p class="text-on-surface-variant mt-2 text-sm max-w-xs">Tienda de relojes Invicta y TechnoMarine en Valencia. Catálogo real, carrito y cierre por WhatsApp en un solo mensaje.</p>
+          <h3 class="font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter text-on-surface">Luxscents Time</h3>
+          <p class="text-on-surface-variant mt-4 leading-relaxed">
+            Tienda de relojes Invicta y TechnoMarine en Valencia. Hicimos el catálogo completo con fotos
+            reales del inventario, carrito y cierre por WhatsApp en un solo mensaje, con una dirección de
+            arte negro y oro pensada para vender presencia.
+          </p>
+          <a href="https://luxscents-time.vercel.app/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 mt-6 font-headline font-black text-xs uppercase tracking-widest text-primary-container border-b-2 border-outline-variant hover:border-primary-container pb-1 transition-colors">
+            ABRIR PROYECTO →
+          </a>
         </div>
-      </a>
+      </div>
 
-      <!-- BROCCAS GROUP — Full width (12 cols) -->
-      <a href="https://broccasgroup.com"
-         target="_blank" rel="noopener noreferrer"
-         class="project-card md:col-span-12 group relative overflow-hidden h-[420px] border-2 border-outline-variant hover:border-primary-container transition-colors duration-300 fade-up delay-3">
-        <div class="preview-wrapper preview-fw">
-          <iframe src="https://broccasgroup.com"
-                  class="preview-frame"
-                  title="Broccas Group Preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin allow-forms">
-          </iframe>
+      <!-- BROCCAS GROUP — descripción izquierda · página derecha -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center fade-up">
+        <div class="md:col-span-5 order-2 md:order-1">
+          <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-5 inline-block font-headline">
+            CORPORATIVA / CATÁLOGO
+          </span>
+          <h3 class="font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter text-on-surface">Broccas Group</h3>
+          <p class="text-on-surface-variant mt-4 leading-relaxed">
+            Importadora de herrajes para carpintería. Construimos su sitio corporativo con catálogo B2B
+            completo: ficha por producto, categorías, y pedido directo por WhatsApp para venta al mayor
+            en toda Venezuela.
+          </p>
+          <a href="https://broccasgroup.com" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 mt-6 font-headline font-black text-xs uppercase tracking-widest text-primary-container border-b-2 border-outline-variant hover:border-primary-container pb-1 transition-colors">
+            ABRIR PROYECTO →
+          </a>
         </div>
-        <!-- Soft dark overlay that lightens on hover -->
-        <div class="absolute inset-0 bg-[#0e0e0e]/55 group-hover:bg-[#0e0e0e]/30 transition-colors duration-400"></div>
-        <!-- Centered info panel -->
-        <div class="absolute inset-0 flex items-center justify-center z-10">
-          <div class="text-center p-10 bg-surface/90 border-2 border-outline-variant group-hover:border-primary-container transition-colors duration-300">
-            <span class="bg-primary-container text-on-primary text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-5 inline-block font-headline">
-              CORPORATIVA / CATÁLOGO
-            </span>
-            <h3 class="font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter text-on-surface">Broccas Group</h3>
-            <p class="text-on-surface-variant font-label text-sm mt-3 max-w-sm mx-auto">Importadora de herrajes para carpintería. Catálogo B2B completo con ficha por producto y pedido directo.</p>
-            <p class="text-primary-container font-label uppercase text-xs mt-5 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              ABRIR PROYECTO ✦
-            </p>
-          </div>
-        </div>
-      </a>
+        <a href="https://broccasgroup.com" target="_blank" rel="noopener noreferrer"
+           class="project-card md:col-span-7 order-1 md:order-2 group block overflow-hidden border-2 border-outline-variant hover:border-primary-container transition-colors duration-300">
+          <img src="./proyecto-broccas.webp"
+               alt="Portada de Broccas Group: hero morado con titular Herrajes de Primer Nivel"
+               width="1280" height="800" loading="lazy" decoding="async"
+               class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"/>
+        </a>
+      </div>
 
     </div>
   </section>
